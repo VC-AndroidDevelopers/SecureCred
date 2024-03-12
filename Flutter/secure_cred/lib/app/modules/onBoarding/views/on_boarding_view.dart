@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:secure_cred/app/data/widget.dart';
+import 'package:secure_cred/app/routes/app_pages.dart';
 
 import '../controllers/on_boarding_controller.dart';
 
@@ -130,7 +131,11 @@ class OnBoardingView2 extends GetView<OnBoardingController> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image.asset("./assets/images/miscs/on2.png"),
-                        TextButton(onPressed: () {}, child: Text("Skip"))
+                        TextButton(
+                            onPressed: () {
+                              Get.offAllNamed(Routes.LOGIN);
+                            },
+                            child: const Text("Skip"))
                       ],
                     ),
                   )
@@ -197,7 +202,11 @@ class OnBoardingView3 extends GetView<OnBoardingController> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Image.asset("./assets/images/miscs/on3.png"),
-                      TextButton(onPressed: () {}, child: Text("Login"))
+                      TextButton(
+                          onPressed: () {
+                            Get.offAllNamed(Routes.LOGIN);
+                          },
+                          child: const Text("Login"))
                     ],
                   ),
                 )

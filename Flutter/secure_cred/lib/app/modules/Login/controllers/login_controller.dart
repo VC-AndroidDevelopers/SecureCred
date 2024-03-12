@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
 
-class HomeController extends GetxController {
+class LoginController extends GetxController {
+  RxBool password = true.obs;
 
-
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +18,7 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  changeVisibility() {
+    password.value = !password.value;
+  }
 }

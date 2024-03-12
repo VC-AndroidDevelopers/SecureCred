@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
 
-class HomeController extends GetxController {
-
+class SignupController extends GetxController {
+  RxBool password = true.obs;
+  RxBool cPassword = false.obs;
 
   final count = 0.obs;
   @override
@@ -20,4 +21,10 @@ class HomeController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  changeVisibility(int id) {
+    id == 1
+        ? password.value = !password.value
+        : cPassword.value = !cPassword.value;
+  }
 }

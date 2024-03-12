@@ -11,7 +11,8 @@ class SplashView extends GetView<SplashController> {
 
   @override
   Widget build(BuildContext context) {
-    final splashController = Get.put(SplashController());
+    // ignore: unused_local_variable
+    var splashController = Get.put(SplashController());
 
     return Scaffold(
         body: Stack(
@@ -31,17 +32,18 @@ class SplashView extends GetView<SplashController> {
                 scale: 2.5,
               ),
               SizedBox(
-                  width: Get.width / 3,
-                  child: const LinearProgressIndicator(
-                    backgroundColor: Color.fromARGB(
-                      154,
-                      255,
-                      255,
-                      255,
-                    ),
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                  ))
+                width: Get.width / 3,
+                child: const LinearProgressIndicator(
+                  backgroundColor: Color.fromARGB(
+                    154,
+                    255,
+                    255,
+                    255,
+                  ),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
+              )
             ],
           ),
         )
