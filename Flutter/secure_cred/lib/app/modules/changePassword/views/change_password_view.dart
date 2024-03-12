@@ -2,41 +2,24 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:secure_cred/app/data/widget.dart';
-import 'package:secure_cred/app/routes/app_pages.dart';
 
-import '../controllers/signup_controller.dart';
+import '../controllers/change_password_controller.dart';
 
-class SignupView extends GetView<SignupController> {
-  const SignupView({Key? key}) : super(key: key);
+class ChangePasswordView extends GetView<ChangePasswordController> {
+  const ChangePasswordView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign Up'),
+        title: const Text('Change Password'),
         centerTitle: true,
       ),
       body: loginBackground(
         Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            loginText("Create Your Account", "Let’s create an secure account"),
+            loginText("New Password", "Enter Your New Password"),
             const SizedBox(
               height: 30,
-            ),
-            TextField(
-              style: TextStyle(color: Theme.of(context).secondaryHeaderColor),
-              decoration: loginDecoration("Enter Name", context),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            TextField(
-              style: TextStyle(color: Theme.of(context).secondaryHeaderColor),
-              decoration: loginDecoration("Enter Email", context),
-            ),
-            const SizedBox(
-              height: 10,
             ),
             Obx(
               () => TextField(
@@ -98,15 +81,13 @@ class SignupView extends GetView<SignupController> {
               ),
             ),
             const SizedBox(
-              height: 30,
+              height: 40,
             ),
-            redButton(() => null, "Create an account"),
+            redButton(() => null, "Next"),
             const SizedBox(
-              height: 30,
+              height: 50,
             ),
-            multiTextButton("Already have an account?", "Login now", () {
-              Get.offAndToNamed(Routes.LOGIN);
-            })
+            multiTextButton("Getting trouble?", "Contact Us", () => null)
           ],
         ),
       ),

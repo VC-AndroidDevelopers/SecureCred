@@ -8,6 +8,7 @@ ThemeData lightTheme = ThemeData(
   hintColor: Colors.white60,
   appBarTheme: const AppBarTheme(
       backgroundColor: Colors.transparent,
+      foregroundColor: Colors.black,
       elevation: 0,
       titleTextStyle: TextStyle(
           color: Colors.black,

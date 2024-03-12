@@ -11,36 +11,33 @@ loginBackground(Widget widget) {
   return Stack(
     fit: StackFit.expand,
     children: [
-      Column(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Image.asset(
-                "./assets/images/login.png",
-                scale: 2,
+      Align(
+        alignment: Alignment.topCenter,
+        child: Container(
+          margin: EdgeInsets.only(top: 50),
+          child: Image.asset(
+            "./assets/images/login.png",
+            scale: 2,
+          ),
+        ),
+      ),
+      Align(
+        alignment: Alignment.bottomCenter,
+        child: SingleChildScrollView(
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(40),
+            decoration: const BoxDecoration(
+              color: Color(0xff0C1325),
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(40),
+                topRight: Radius.circular(40),
               ),
             ),
+            child: widget,
           ),
-          Expanded(
-            flex: 2,
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(40),
-              decoration: const BoxDecoration(
-                color: Color(0xff0C1325),
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
-                ),
-              ),
-              child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(), child: widget),
-            ),
-          ),
-        ],
+        ),
       ),
     ],
   );
@@ -118,7 +115,10 @@ multiTextButton(String text1, String text2, Function() main) {
         onPressed: main,
         child: Text(
           text2,
-          style: const TextStyle(color: Color(0xffB3001E)),
+          style: TextStyle(
+              color: text2 == "Contact Us"
+                  ? Colors.white
+                  : const Color(0xffB3001E)),
         ),
       )
     ],
