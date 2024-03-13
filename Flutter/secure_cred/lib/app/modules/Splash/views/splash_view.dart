@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:secure_cred/app/data/gradients.dart';
+import 'package:secure_cred/app/modules/home/controllers/home_controller.dart';
 
 import '../controllers/splash_controller.dart';
 
@@ -11,6 +12,8 @@ class SplashView extends GetView<SplashController> {
 
   @override
   Widget build(BuildContext context) {
+    var homeController = Get.put(HomeController());
+
     // ignore: unused_local_variable
     var splashController = Get.put(SplashController());
 

@@ -3,17 +3,17 @@ version: 1.0.0+1
 publish_to: none
 description: A new Flutter project.
 environment: 
-  sdk: '>=3.0.3 <4.0.0'
+  sdk: '>=3.0.2 <4.0.0'
 
 dependencies: 
   cupertino_icons: ^1.0.2
-  flutter_bloc: ^8.1.3
   shared_preferences: ^2.2.0
   flutter_svg: ^2.0.7
   google_fonts: ^5.1.0
   smooth_page_indicator: ^1.1.0
   random_avatar: ^0.0.8
   get: 4.6.6
+  cached_network_image: 3.3.1
   flutter: 
     sdk: flutter
 
@@ -29,6 +29,7 @@ flutter:
         - asset: fonts/Poppins-Regular.ttf
   assets: 
     - assets/images/
+    - assets/samples/
     - assets/images/miscs/
   uses-material-design: true
 

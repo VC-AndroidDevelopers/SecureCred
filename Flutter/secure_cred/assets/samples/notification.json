@@ -1,0 +1,13 @@
+[{
+    "id": 1,
+    "title": "T-Shirt",
+    "description": "A comfortable and stylish T-Shirt",
+    "color": "red"
+  },
+  {
+    "id": 2,
+    "title": "P-Shirt",
+    "description": "A comfortable and stylish P-Shirt",
+    "color": "black"
+  }
+]
