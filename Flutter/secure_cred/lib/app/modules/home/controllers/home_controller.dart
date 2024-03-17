@@ -3,15 +3,15 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 
 import 'package:secure_cred/app/modules/home/model/cardClass.dart';
 import 'package:secure_cred/app/modules/home/model/categoryClass.dart';
 import 'package:secure_cred/app/modules/home/model/passwordClass.dart';
 
-class HomeController extends GetxController {
+class HomeController extends GetxController with GetTickerProviderStateMixin {
   final notificationCardList = Rxn<NotificationCardList>();
   final categoriesList = Rxn<CategoriesList>();
   final passwordList = Rxn<PasswordList>();
@@ -22,6 +22,7 @@ class HomeController extends GetxController {
   RxInt showingLength = 1.obs;
   List showingList = [].obs;
   RxInt selectedMenu = 0.obs;
+  RxInt selectedBottomMenu = 0.obs;
 
   List menuTitle = [
     "Home",
@@ -30,6 +31,13 @@ class HomeController extends GetxController {
     "Category",
     "Settings",
     "Account"
+  ];
+
+  List bottomMenuTitle = [
+    "Recently added",
+    "Last month added",
+    "Yesterday added",
+    "24hr ago",
   ];
 
   List<IconData> menuIcons = [
@@ -93,11 +101,11 @@ class HomeController extends GetxController {
     updateShowingLenth();
   }
 
-  changeView() {
+  changeListView() {
     isGrid.value = !isGrid.value;
   }
 
-  returnUrl(String domainName) {
+  returnImageUrl(String domainName) {
     String src =
         "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://$domainName/&size=64";
     return src;
@@ -112,5 +120,17 @@ class HomeController extends GetxController {
         showingList.add(element);
       }
     });
+  }
+
+  changeSelectedMenu(index) {
+    selectedMenu.value = index;
+  }
+
+  changeSelectedBottomMenu(index) {
+    selectedBottomMenu.value = index;
+  }
+
+  passwordTitle() {
+    return "${showingLength.value < 25 ? showingLength.value : 25} of ${showingLength}  ${category.value} showed";
   }
 }

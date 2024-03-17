@@ -1,6 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
 
 boldText(String text) {
@@ -153,9 +155,13 @@ dashBoardSubTitle(String text, Widget widget) {
   );
 }
 
-notificationCard(int? id, String? title, String? description, String? color) {
+notificationCard(
+  int? id,
+  String? title,
+  String? description,
+  String? color,
+) {
   return Container(
-    margin: const EdgeInsets.only(right: 10),
     height: Get.height / 5,
     width: Get.width - 30,
     decoration: BoxDecoration(
@@ -289,7 +295,7 @@ listItem(String url, String site, String date, int id) {
     child: Row(
       children: [
         CircleAvatar(
-          backgroundColor: const Color.fromARGB(58, 74, 74, 74),
+          backgroundColor: Colors.transparent,
           child: Padding(
             padding: const EdgeInsets.all(3.0),
             child: Image(image: CachedNetworkImageProvider(url)),
@@ -349,7 +355,7 @@ gridItem(String url, String site, String date, int id) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                width: 120,
+                width: Get.width / 4.2,
                 child: Text(
                   site,
                   maxLines: 1,
@@ -388,7 +394,94 @@ listMenu(String title, int index, int selectedIndex, IconData icon,
       title: Text(title),
       leading: Icon(icon),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(45)),
-      tileColor: selected ? Color.fromARGB(130, 255, 180, 193) : null,
+      tileColor: selected ? const Color.fromARGB(130, 255, 180, 193) : null,
     ),
+  );
+}
+
+///~ Profile ~///
+
+profileView() {
+  return Column(
+    children: [
+      Expanded(
+        flex: 1,
+        child: Center(
+          child: CircleAvatar(
+            maxRadius: Get.width / 5,
+            backgroundColor: Color(0xffff4155),
+            child: Icon(
+              Icons.person_2,
+              color: Colors.white,
+              size: Get.width / 5,
+            ),
+          ),
+        ),
+      ),
+      Expanded(
+        flex: 2,
+        child: Container(
+          constraints: const BoxConstraints.expand(),
+          padding: const EdgeInsets.all(20),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(50),
+              topRight: Radius.circular(50),
+            ),
+          ),
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(bottom: 10),
+                child: ListTile(
+                  leading: roundedRectangularIcon(Icons.edit_document),
+                  title: const Text("Edit Profile"),
+                  trailing: const Icon(Icons.keyboard_arrow_right_outlined),
+                  iconColor: Colors.black,
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(bottom: 10),
+                child: ListTile(
+                  leading: roundedRectangularIcon(Icons.shield_outlined),
+                  title: const Text("Encryption policy"),
+                  trailing: const Icon(Icons.keyboard_arrow_right_outlined),
+                  iconColor: Colors.black,
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(bottom: 10),
+                child: ListTile(
+                  leading: roundedRectangularIcon(Icons.person_outline),
+                  title: const Text("User Management"),
+                  trailing: const Icon(Icons.keyboard_arrow_right_outlined),
+                  iconColor: Colors.black,
+                ),
+              ),
+              const Divider(),
+              Container(
+                margin: const EdgeInsets.only(top: 10),
+                child: ListTile(
+                  leading: roundedRectangularIcon(Icons.logout_outlined),
+                  title: const Text("Logout"),
+                  iconColor: Colors.black,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+roundedRectangularIcon(IconData icon) {
+  return Container(
+    decoration: BoxDecoration(
+        color: const Color(0xffF3F3F3),
+        borderRadius: BorderRadius.circular(10)),
+    padding: const EdgeInsets.all(10),
+    child: Icon(icon),
   );
 }

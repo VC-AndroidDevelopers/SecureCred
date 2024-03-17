@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:get/get.dart';
 
@@ -12,412 +13,728 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _key = GlobalKey();
-    return Scaffold(
-      key: _key,
-      extendBody: true,
-      drawer: Drawer(
-        backgroundColor: const Color(0xffECECEC),
-        child: Container(
+    final GlobalKey<PopupMenuButtonState> _popup_key = GlobalKey();
+
+    return Obx(
+      () => Scaffold(
+        //values
+        key: _key,
+        extendBody: true,
+        drawerEdgeDragWidth: 1,
+        drawerEnableOpenDragGesture: true,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        backgroundColor: controller.selectedMenu.value == 5
+            ? const Color(0xffF2F2F2)
+            : Colors.white,
+
+        //Widgets
+        floatingActionButton: Container(
+          padding: const EdgeInsets.only(bottom: 35),
+          alignment: Alignment.bottomCenter,
+          child: FloatingActionButton(
+              hoverElevation: 0,
+              elevation: 0,
+              backgroundColor: Colors.black,
+              onPressed: () {
+                _popup_key.currentState!.showButtonMenu();
+              },
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(90),
+              ),
+              child: PopupMenuButton(
+                  enabled: false,
+                  popUpAnimationStyle: AnimationStyle.noAnimation,
+                  key: _popup_key,
+                  position: PopupMenuPosition.over,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  tooltip: "",
+                  offset: const Offset(95, -130),
+                  surfaceTintColor: Colors.white,
+                  itemBuilder: (context) {
+                    return [
+                      const PopupMenuItem(
+                          child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: Colors.black,
+                            foregroundColor: Colors.white,
+                            radius: 10,
+                            child: Icon(
+                              Icons.add,
+                              size: 15,
+                            ),
+                          ),
+                          SizedBox(width: 15),
+                          Text("Add New Password"),
+                        ],
+                      )),
+                      const PopupMenuItem(
+                          child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: Colors.black,
+                            foregroundColor: Colors.white,
+                            radius: 10,
+                            child: Icon(
+                              Icons.add,
+                              size: 15,
+                            ),
+                          ),
+                          SizedBox(width: 15),
+                          Text("Add New Category"),
+                        ],
+                      )),
+                    ];
+                  },
+                  child: const Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ))),
+        ),
+        bottomNavigationBar: Container(
+          margin: const EdgeInsets.all(10),
           padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+          height: Get.height / 12,
+          decoration: const BoxDecoration(
+              color: Color(0xffEBEBEB),
+              borderRadius: BorderRadius.all(Radius.circular(45))),
+          child: Center(
+            child: Container(
+                margin: const EdgeInsets.only(right: 10, left: 10),
+                child: Obx(
+                  () => Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      dashBoardTitle("SecureCred"),
-                      const Text(
-                        "sed do eiusmod tempor incididunt",
-                        style: TextStyle(fontSize: 9),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          //Home
+                          IconButton(
+                              onPressed: () {
+                                controller.changeSelectedMenu(0);
+                              },
+                              icon: Icon(
+                                controller.selectedMenu.value == 0
+                                    ? Icons.home
+                                    : Icons.home_outlined,
+                                color: controller.selectedMenu.value == 0
+                                    ? const Color(0xffB3001E)
+                                    : Colors.black,
+                              )),
+                          const SizedBox(
+                            width: 30,
+                          ),
+                          //Search
+                          IconButton(
+                              onPressed: () {
+                                controller.changeSelectedMenu(1);
+                              },
+                              icon: Icon(
+                                controller.selectedMenu.value == 1
+                                    ? Icons.search
+                                    : Icons.search_outlined,
+                                color: controller.selectedMenu.value == 1
+                                    ? const Color(0xffB3001E)
+                                    : Colors.black,
+                              ))
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          //Shield
+                          IconButton(
+                              onPressed: () {
+                                controller.changeSelectedMenu(2);
+                              },
+                              icon: Icon(
+                                controller.selectedMenu.value == 2
+                                    ? Icons.notifications
+                                    : Icons.notifications_outlined,
+                                color: controller.selectedMenu.value == 2
+                                    ? const Color(0xffB3001E)
+                                    : Colors.black,
+                              )),
+                          const SizedBox(
+                            width: 30,
+                          ),
+                          //Settings
+                          IconButton(
+                              onPressed: () {
+                                controller.changeSelectedMenu(4);
+                              },
+                              icon: Icon(
+                                controller.selectedMenu.value == 4
+                                    ? Icons.settings
+                                    : Icons.settings_outlined,
+                                color: controller.selectedMenu.value == 4
+                                    ? const Color(0xffB3001E)
+                                    : Colors.black,
+                              )),
+                        ],
                       ),
                     ],
                   ),
-                  const Spacer(),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.close))
-                ],
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              const Divider(),
-              const SizedBox(
-                height: 5,
-              ),
-              dashBoardSubTitle("Menu", Container()),
-              const SizedBox(
-                height: 10,
-              ),
-              for (int index = 0; index < 5; index++)
-                Obx(() => listMenu(
-                        controller.menuTitle[index],
-                        index,
-                        controller.selectedMenu.value,
-                        controller.menuIcons[index], () {
-                      controller.selectedMenu.value = index;
-                    }))
-            ],
+                )),
           ),
         ),
-      ),
-      drawerEdgeDragWidth: 1,
-      drawerEnableOpenDragGesture: true,
-      floatingActionButton: Container(
-        padding: const EdgeInsets.only(bottom: 40),
-        alignment: Alignment.bottomCenter,
-        child: FloatingActionButton(
-            hoverElevation: 0,
-            elevation: 0,
-            backgroundColor: Colors.black,
-            onPressed: () {
-              // TODO: Implement functionality
-            },
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(90),
+        appBar: AppBar(
+          centerTitle: true,
+          title: Obx(() => controller.selectedMenu.value == 5
+              ? const Text("Profile")
+              : const SizedBox()),
+          leading: Container(
+            margin: const EdgeInsets.all(10),
+            child: GestureDetector(
+              onTap: () {
+                _key.currentState!.openDrawer();
+              },
+              child: Image.asset(
+                "./assets/images/miscs/menu.png",
+                scale: 2,
+              ),
             ),
-            child: PopupMenuButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                tooltip: "",
-                offset: const Offset(95, -130),
-                surfaceTintColor: Colors.white,
-                itemBuilder: (context) {
-                  return [
-                    const PopupMenuItem(
-                        child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          backgroundColor: Colors.black,
-                          foregroundColor: Colors.white,
-                          radius: 10,
-                          child: Icon(
-                            Icons.add,
-                            size: 15,
+          ),
+          actions: [
+            Container(
+                margin: const EdgeInsets.only(right: 10),
+                child: Obx(
+                  () => controller.selectedMenu.value == 5
+                      ? IconButton(
+                          onPressed: () {}, icon: const Icon(Icons.more_horiz))
+                      : GestureDetector(
+                          onTap: () {
+                            controller.changeSelectedMenu(5);
+                          },
+                          child: const CircleAvatar(
+                            backgroundColor: Color(0xffff4155),
+                            radius: 18,
+                            child: Icon(
+                              Icons.person_2,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
-                        SizedBox(width: 15),
-                        Text("Add New Password"),
-                      ],
-                    )),
-                    const PopupMenuItem(
-                        child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          backgroundColor: Colors.black,
-                          foregroundColor: Colors.white,
-                          radius: 10,
-                          child: Icon(
-                            Icons.add,
-                            size: 15,
-                          ),
-                        ),
-                        SizedBox(width: 15),
-                        Text("Add New Category"),
-                      ],
-                    )),
-                  ];
-                },
-                child: const Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ))),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: Container(
-        margin: const EdgeInsets.all(10),
-        padding: const EdgeInsets.all(16),
-        height: Get.height / 12,
-        decoration: const BoxDecoration(
-            color: Color(0xffEBEBEB),
-            borderRadius: BorderRadius.all(Radius.circular(45))),
-        child: Center(
+                )),
+          ],
+        ),
+        drawer: Drawer(
+          backgroundColor: const Color(0xffECECEC),
           child: Container(
-            margin: const EdgeInsets.only(right: 10, left: 10),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.home_outlined,
-                        )),
-                    const SizedBox(
-                      width: 40,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        dashBoardTitle("SecureCred"),
+                        const Text(
+                          "sed do eiusmod tempor incididunt",
+                          style: TextStyle(fontSize: 9),
+                        ),
+                      ],
                     ),
+                    const Spacer(),
                     IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.search_outlined))
+                        onPressed: () {
+                          _key.currentState!.closeDrawer();
+                        },
+                        icon: const Icon(Icons.close))
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.shield_outlined)),
-                    const SizedBox(
-                      width: 40,
-                    ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.settings_outlined))
-                  ],
+                const SizedBox(
+                  height: 5,
                 ),
+                const Divider(),
+                const SizedBox(
+                  height: 5,
+                ),
+                dashBoardSubTitle("Menu", Container()),
+                const SizedBox(
+                  height: 10,
+                ),
+                for (int index = 0;
+                    index < controller.menuTitle.length;
+                    index++)
+                  Obx(
+                    () => listMenu(
+                      controller.menuTitle[index],
+                      index,
+                      controller.selectedMenu.value,
+                      controller.menuIcons[index],
+                      () {
+                        controller.changeSelectedMenu(index);
+                        Future.delayed(const Duration(milliseconds: 200))
+                            .then((value) => _key.currentState!.closeDrawer());
+                      },
+                    ),
+                  ),
               ],
             ),
           ),
         ),
-      ),
-      appBar: AppBar(
-        leading: Container(
-          margin: const EdgeInsets.all(10),
-          child: GestureDetector(
-            onTap: () {
-              _key.currentState!.openDrawer();
-            },
-            child: Image.asset(
-              "./assets/images/miscs/menu.png",
-              scale: 2,
-            ),
-          ),
-        ),
-        actions: [
-          Container(
-              margin: const EdgeInsets.all(10),
-              child: const CircleAvatar(
-                backgroundColor: Colors.red,
-                radius: 18,
-                child: Icon(
-                  Icons.person_2,
-                  color: Colors.white,
-                ),
-              ))
-        ],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            dashBoardTitle("Password Manager"),
-            const SizedBox(
-              height: 15,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(20),
-                prefixIcon: const Icon(Icons.search),
-                hintText: "Search",
-                hintStyle: TextStyle(color: Colors.grey[600]),
-                filled: true,
-                suffixIcon: GestureDetector(
-                  onTap: () {
-                    //TODO: Implement function here
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10)),
-                    margin: const EdgeInsets.only(right: 10, top: 5, bottom: 5),
-                    padding: const EdgeInsets.all(5),
-                    child: Image.asset(
-                      "./assets/images/miscs/settings.png",
-                      scale: 2,
-                    ),
-                  ),
-                ),
-                fillColor: const Color(0xffF4F4F4),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Obx(() => controller.notificationCardList.value != null
-                ? SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    physics: const BouncingScrollPhysics(),
-                    child: Row(
-                      children: [
-                        for (int i = 0;
-                            i <
-                                controller.notificationCardList.value!
-                                    .notification.length;
-                            i++)
-                          notificationCard(
-                              controller.notificationCardList.value
-                                  ?.notification[i].id,
-                              controller.notificationCardList.value
-                                  ?.notification[i].title,
-                              controller.notificationCardList.value
-                                  ?.notification[i].description,
-                              controller.notificationCardList.value
-                                  ?.notification[i].color)
-                      ],
-                    ),
-                  )
-                : passwordIsSafe()),
-            const SizedBox(
-              height: 15,
-            ),
-            dashBoardSubTitle(
-              "Categories",
-              TextButton(
-                onPressed: () {},
-                child: const Text("more"),
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Obx(
-              () => controller.categoriesList.value != null
-                  ? SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
+        body: Obx(
+          () => controller.selectedMenu.value == 5
+              ? profileView()
+              : controller.selectedMenu.value == 4
+                  ? Container()
+                  : SingleChildScrollView(
+                      padding: const EdgeInsets.all(16),
                       physics: const BouncingScrollPhysics(),
-                      child: Row(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          for (int index = 0;
-                              index <
-                                  controller
-                                      .categoriesList.value!.categories.length;
-                              index++)
-                            categoriesCard(() {
-                              controller.selectCategory(
-                                  index,
-                                  controller.categoriesList.value!
-                                      .categories[index].title);
-                            },
-                                controller.categoriesList.value!
-                                    .categories[index].title,
-                                controller.selectedCategory.value == index)
+                          dashBoardTitle(controller.selectedMenu.value == 2
+                              ? "Notifications"
+                              : controller.selectedMenu.value == 4
+                                  ? "Settings"
+                                  : "Passwords"),
+                          SizedBox(
+                            height: controller.selectedMenu.value == 2 ? 0 : 15,
+                          ),
+                          controller.selectedMenu.value == 2
+                              ? const SizedBox()
+                              : TextField(
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.all(20),
+                                    prefixIcon: const Icon(Icons.search),
+                                    hintText: "Search",
+                                    hintStyle:
+                                        TextStyle(color: Colors.grey[600]),
+                                    filled: true,
+                                    suffixIcon: GestureDetector(
+                                      onTap: () {
+                                        //Search filter
+
+                                        Get.bottomSheet(
+                                          BottomSheet(
+                                            backgroundColor: const Color(0xffffffff),
+                                            dragHandleColor: Colors.grey,
+                                            shadowColor: Colors.transparent,
+                                            dragHandleSize: const Size(100, 10),
+                                            constraints: BoxConstraints(
+                                                maxHeight: Get.height / 2.3),
+                                            showDragHandle: true,
+                                            onClosing: () {},
+                                            builder: (BuildContext context) {
+                                              return Column(
+                                                children: [
+                                                  Container(
+                                                    width: Get.width,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 7,
+                                                            bottom: 7,
+                                                            left: 16),
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                      color: Color(0xffF3F3F3),
+                                                    ),
+                                                    child:
+                                                        const Text("SORT BY"),
+                                                  ),
+                                                  for (int i = 0;
+                                                      i <
+                                                          controller
+                                                              .bottomMenuTitle
+                                                              .length;
+                                                      i++)
+                                                    Obx(
+                                                      () => ListTile(
+                                                        title: Text(
+                                                          controller
+                                                              .bottomMenuTitle[i],
+                                                        ),
+                                                        trailing: Radio<int>(
+                                                          fillColor:
+                                                              MaterialStateColor
+                                                                  .resolveWith(
+                                                                      (states) =>
+                                                                          Colors
+                                                                              .black),
+                                                          value: i,
+                                                          groupValue: controller
+                                                              .selectedBottomMenu
+                                                              .value,
+                                                          onChanged:
+                                                              (int? value) {
+                                                            controller
+                                                                .changeSelectedBottomMenu(
+                                                                    value);
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 16.0,
+                                                            right: 16,
+                                                            left: 16),
+                                                    child: MaterialButton(
+                                                      padding:
+                                                          const EdgeInsets.all(20),
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10)),
+                                                      onPressed: () {
+                                                        Get.back();
+                                                      },
+                                                      child: const Text("Apply"),
+                                                      textColor: Colors.white,
+                                                      color: Colors.black,
+                                                      minWidth: Get.width,
+                                                    ),
+                                                  )
+                                                ],
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        margin: const EdgeInsets.only(
+                                            right: 10, top: 5, bottom: 5),
+                                        padding: const EdgeInsets.all(5),
+                                        child: Image.asset(
+                                          "./assets/images/miscs/settings.png",
+                                          scale: 2,
+                                        ),
+                                      ),
+                                    ),
+                                    fillColor: const Color(0xffF4F4F4),
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+
+                          //Notification Card
+                          controller.selectedMenu.value == 1
+                              ? const SizedBox()
+                              : Obx(() => controller
+                                          .notificationCardList.value !=
+                                      null
+                                  ? SingleChildScrollView(
+                                      scrollDirection:
+                                          controller.selectedMenu.value == 2
+                                              ? Axis.vertical
+                                              : Axis.horizontal,
+                                      physics: const BouncingScrollPhysics(),
+                                      child: controller.selectedMenu.value != 2
+                                          ? Row(
+                                              children: [
+                                                for (int i = 0;
+                                                    i <
+                                                        controller
+                                                            .notificationCardList
+                                                            .value!
+                                                            .notification
+                                                            .length;
+                                                    i++)
+                                                  notificationCard(
+                                                      controller
+                                                          .notificationCardList
+                                                          .value
+                                                          ?.notification[i]
+                                                          .id,
+                                                      controller
+                                                          .notificationCardList
+                                                          .value
+                                                          ?.notification[i]
+                                                          .title,
+                                                      controller
+                                                          .notificationCardList
+                                                          .value
+                                                          ?.notification[i]
+                                                          .description,
+                                                      controller
+                                                          .notificationCardList
+                                                          .value
+                                                          ?.notification[i]
+                                                          .color)
+                                              ],
+                                            )
+                                          : Column(
+                                              children: [
+                                                for (int i = 0;
+                                                    i <
+                                                        controller
+                                                            .notificationCardList
+                                                            .value!
+                                                            .notification
+                                                            .length;
+                                                    i++)
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(5),
+                                                    child: notificationCard(
+                                                        controller
+                                                            .notificationCardList
+                                                            .value
+                                                            ?.notification[i]
+                                                            .id,
+                                                        controller
+                                                            .notificationCardList
+                                                            .value
+                                                            ?.notification[i]
+                                                            .title,
+                                                        controller
+                                                            .notificationCardList
+                                                            .value
+                                                            ?.notification[i]
+                                                            .description,
+                                                        controller
+                                                            .notificationCardList
+                                                            .value
+                                                            ?.notification[i]
+                                                            .color),
+                                                  )
+                                              ],
+                                            ),
+                                    )
+                                  : passwordIsSafe()),
+                          SizedBox(
+                            height: controller.selectedMenu.value == 1 ||
+                                    controller.selectedMenu.value == 2
+                                ? 0
+                                : 15,
+                          ),
+
+                          //Categories
+                          controller.selectedMenu.value == 1 ||
+                                  controller.selectedMenu.value == 2
+                              ? const SizedBox()
+                              : dashBoardSubTitle(
+                                  "Categories",
+                                  TextButton(
+                                    onPressed: () {},
+                                    child: const Text("more"),
+                                  ),
+                                ),
+                          SizedBox(
+                            height: controller.selectedMenu.value == 1 ||
+                                    controller.selectedMenu.value == 2
+                                ? 0
+                                : 15,
+                          ),
+                          controller.selectedMenu.value == 1 ||
+                                  controller.selectedMenu.value == 2
+                              ? const SizedBox()
+                              : Obx(
+                                  () => controller.categoriesList.value != null
+                                      ? SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          physics:
+                                              const BouncingScrollPhysics(),
+                                          child: Row(
+                                            children: [
+                                              for (int index = 0;
+                                                  index <
+                                                      controller
+                                                          .categoriesList
+                                                          .value!
+                                                          .categories
+                                                          .length;
+                                                  index++)
+                                                categoriesCard(() {
+                                                  controller.selectCategory(
+                                                      index,
+                                                      controller
+                                                          .categoriesList
+                                                          .value!
+                                                          .categories[index]
+                                                          .title);
+                                                },
+                                                    controller
+                                                        .categoriesList
+                                                        .value!
+                                                        .categories[index]
+                                                        .title,
+                                                    controller.selectedCategory
+                                                            .value ==
+                                                        index)
+                                            ],
+                                          ),
+                                        )
+                                      : Container(),
+                                ),
+                          SizedBox(
+                            height: controller.selectedMenu.value == 1 ||
+                                    controller.selectedMenu.value == 2
+                                ? 0
+                                : 15,
+                          ),
+
+                          //Passwords
+                          controller.selectedMenu.value == 2
+                              ? const SizedBox()
+                              : Obx(
+                                  () => dashBoardSubTitle(
+                                    controller.selectedMenu.value != 1
+                                        ? controller.passwordTitle()
+                                        : "Passwords",
+                                    GestureDetector(
+                                      onTap: () {
+                                        controller.changeListView();
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: const Color(0xffF4F4F4),
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
+                                        padding: const EdgeInsets.all(3),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              padding: const EdgeInsets.all(4),
+                                              decoration: !controller
+                                                      .isGrid.value
+                                                  ? BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5))
+                                                  : null,
+                                              child: Image.asset(
+                                                "./assets/images/miscs/list.png",
+                                                scale: 2.5,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 5,
+                                            ),
+                                            Container(
+                                              padding: const EdgeInsets.all(4),
+                                              decoration: controller
+                                                      .isGrid.value
+                                                  ? BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5))
+                                                  : null,
+                                              child: Image.asset(
+                                                "./assets/images/miscs/grid.png",
+                                                scale: 2.5,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          controller.selectedMenu.value == 2
+                              ? const SizedBox()
+                              : Obx(
+                                  () => !controller.isGrid.value
+                                      ? Obx(
+                                          () => SizedBox(
+                                            child: ListView.builder(
+                                              shrinkWrap: true,
+                                              physics:
+                                                  const BouncingScrollPhysics(),
+                                              itemCount: controller
+                                                          .showingLength.value >
+                                                      25
+                                                  ? 25
+                                                  : controller
+                                                      .showingList.length,
+                                              itemBuilder: (context, index) {
+                                                String site = controller
+                                                    .showingList[index].site;
+                                                String date = controller
+                                                    .showingList[index].date;
+                                                int id = controller
+                                                    .showingList[index].id;
+                                                String category = controller
+                                                    .showingList[index]
+                                                    .category;
+                                                String url = controller
+                                                    .returnImageUrl(site);
+
+                                                return Obx(() {
+                                                  if (category ==
+                                                      controller
+                                                          .category.value) {
+                                                    return listItem(
+                                                        url, site, date, id);
+                                                  } else {
+                                                    return Container();
+                                                  }
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        )
+                                      : SizedBox(
+                                          child: GridView.builder(
+                                            padding: EdgeInsets.zero,
+                                            shrinkWrap: true,
+                                            physics:
+                                                const BouncingScrollPhysics(),
+                                            gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                                    crossAxisCount: 2,
+                                                    childAspectRatio: 2.5),
+                                            itemCount: controller
+                                                        .showingLength.value >
+                                                    25
+                                                ? 25
+                                                : controller.showingList.length,
+                                            itemBuilder: ((context, index) {
+                                              String site = controller
+                                                  .showingList[index].site;
+                                              String date = controller
+                                                  .showingList[index].date;
+                                              int id = controller
+                                                  .showingList[index].id;
+                                              String category = controller
+                                                  .showingList[index].category;
+                                              String url = controller
+                                                  .returnImageUrl(site);
+
+                                              return Obx(
+                                                () => category ==
+                                                        controller
+                                                            .category.value
+                                                    ? gridItem(
+                                                        url, site, date, id)
+                                                    : Container(),
+                                              );
+                                            }),
+                                          ),
+                                        ),
+                                ),
                         ],
                       ),
-                    )
-                  : Container(),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Obx(
-              () => dashBoardSubTitle(
-                "${controller.showingLength.value < 25 ? controller.showingLength.value : 25} of ${controller.showingLength}  ${controller.category.value} showed",
-                GestureDetector(
-                  onTap: () {
-                    controller.changeView();
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: const Color(0xffF4F4F4),
-                        borderRadius: BorderRadius.circular(5)),
-                    padding: const EdgeInsets.all(3),
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(4),
-                          decoration: !controller.isGrid.value
-                              ? BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(5))
-                              : null,
-                          child: Image.asset(
-                            "./assets/images/miscs/list.png",
-                            scale: 2.5,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(4),
-                          decoration: controller.isGrid.value
-                              ? BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(5))
-                              : null,
-                          child: Image.asset(
-                            "./assets/images/miscs/grid.png",
-                            scale: 2.5,
-                          ),
-                        )
-                      ],
                     ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Obx(
-              () => !controller.isGrid.value
-                  ? Obx(() => SizedBox(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: controller.showingLength.value > 25
-                              ? 25
-                              : controller.showingList.length,
-                          itemBuilder: (context, index) {
-                            String site = controller.showingList[index].site;
-                            String date = controller.showingList[index].date;
-                            int id = controller.showingList[index].id;
-                            String category =
-                                controller.showingList[index].category;
-                            String url = controller.returnUrl(site);
-
-                            return Obx(() {
-                              if (category == controller.category.value) {
-                                return listItem(url, site, date, id);
-                              } else {
-                                return Container();
-                              }
-                            });
-                          },
-                        ),
-                      ))
-                  : SizedBox(
-                      child: GridView.builder(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        physics: const BouncingScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2, childAspectRatio: 2.5),
-                        itemCount: controller.showingLength.value > 25
-                            ? 25
-                            : controller.showingList.length,
-                        itemBuilder: ((context, index) {
-                          String site = controller.showingList[index].site;
-                          String date = controller.showingList[index].date;
-                          int id = controller.showingList[index].id;
-                          String category =
-                              controller.showingList[index].category;
-                          String url = controller.returnUrl(site);
-
-                          return Obx(() => category == controller.category.value
-                              ? gridItem(url, site, date, id)
-                              : Container());
-                        }),
-                      ),
-                    ),
-            )
-          ],
         ),
       ),
     );
