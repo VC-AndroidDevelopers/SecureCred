@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/Download/bindings/download_binding.dart';
+import '../modules/Download/views/download_view.dart';
 import '../modules/ForgotPassword/bindings/forgot_password_binding.dart';
 import '../modules/ForgotPassword/views/forgot_password_view.dart';
 import '../modules/Login/bindings/login_binding.dart';
@@ -64,6 +66,11 @@ class AppPages {
       name: _Paths.CHANGE_PASSWORD,
       page: () => const ChangePasswordView(),
       binding: ChangePasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.DOWNLOAD,
+      page: () => const DownloadView(),
+      binding: DownloadBinding(),
     ),
   ];
 }

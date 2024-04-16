@@ -3,7 +3,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:get/get.dart';
 
@@ -51,14 +50,15 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   @override
   void onInit() {
-    super.onInit();
     fetchData();
+    super.onInit();
+
   }
 
   @override
   void onReady() {
-    super.onReady();
     fetchData();
+    super.onReady();
   }
 
   Future<void> fetchData() async {

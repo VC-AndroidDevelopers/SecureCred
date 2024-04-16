@@ -155,12 +155,7 @@ dashBoardSubTitle(String text, Widget widget) {
   );
 }
 
-notificationCard(
-  int? id,
-  String? title,
-  String? description,
-  String? color,
-) {
+notificationCard(int? id, String? title, String? description, String? color) {
   return Container(
     height: Get.height / 5,
     width: Get.width - 30,
@@ -200,11 +195,8 @@ notificationCard(
   );
 }
 
-categoriesCard(
-  Function() onTap,
-  String title,
-  bool selected,
-) {
+categoriesCard(Function() onTap, String title, bool selected) {
+
   IconData? icon;
   if (title == "Passwords") {
     icon = Icons.lock;

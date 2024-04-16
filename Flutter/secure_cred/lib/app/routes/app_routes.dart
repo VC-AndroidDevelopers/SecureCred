@@ -11,6 +11,7 @@ abstract class Routes {
   static const FORGOT_PASSWORD = _Paths.FORGOT_PASSWORD;
   static const O_P_T_VERIFICATION = _Paths.O_P_T_VERIFICATION;
   static const CHANGE_PASSWORD = _Paths.CHANGE_PASSWORD;
+  static const DOWNLOAD = _Paths.DOWNLOAD;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const FORGOT_PASSWORD = '/forgot-password';
   static const O_P_T_VERIFICATION = '/o-p-t-verification';
   static const CHANGE_PASSWORD = '/change-password';
+  static const DOWNLOAD = '/download';
 }

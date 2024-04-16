@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:get/get.dart';
 
@@ -319,7 +318,8 @@ class HomeView extends GetView<HomeController> {
 
                                         Get.bottomSheet(
                                           BottomSheet(
-                                            backgroundColor: const Color(0xffffffff),
+                                            backgroundColor:
+                                                const Color(0xffffffff),
                                             dragHandleColor: Colors.grey,
                                             shadowColor: Colors.transparent,
                                             dragHandleSize: const Size(100, 10),
@@ -384,7 +384,8 @@ class HomeView extends GetView<HomeController> {
                                                             left: 16),
                                                     child: MaterialButton(
                                                       padding:
-                                                          const EdgeInsets.all(20),
+                                                          const EdgeInsets.all(
+                                                              20),
                                                       shape:
                                                           RoundedRectangleBorder(
                                                               borderRadius:
@@ -394,7 +395,8 @@ class HomeView extends GetView<HomeController> {
                                                       onPressed: () {
                                                         Get.back();
                                                       },
-                                                      child: const Text("Apply"),
+                                                      child:
+                                                          const Text("Apply"),
                                                       textColor: Colors.white,
                                                       color: Colors.black,
                                                       minWidth: Get.width,
